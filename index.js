@@ -1,6 +1,6 @@
 module.exports = class SetTTL extends Set {
 
-    ttl_cache = new Map();
+    #ttl_cache = new Map();
     default_ttl= 0;
 
     constructor(default_ttl) {
@@ -9,37 +9,35 @@ module.exports = class SetTTL extends Set {
     }
 
     #checkTTL(){
-
         const now = new Date().getTime();
-        for(const [key, value] of this.ttl_cache){
+        for(const [key, value] of this.#ttl_cache){
             if(value <= now){
                 this.delete(key);
-                this.ttl_cache.delete(key);
+                this.#ttl_cache.delete(key);
             }
         }
-
     }
 
     add(v, ttl){
         const current = new Date().getTime();
-        this.ttl_cache.set(v, ttl ? current + ttl : current + this.default_ttl)
+        this.#ttl_cache.set(v, ttl ? current + ttl : current + this.default_ttl);
         return super.add(v);
     }
 
     extend(v, ttl){
-        const current = this.ttl_cache.get(v);
+        const current = this.#ttl_cache.get(v);
         if(current){
-            this.ttl_cache.set(v, ttl ? current + ttl : current + this.default_ttl)
+            this.#ttl_cache.set(v, ttl ? current + ttl : current + this.default_ttl);
         }
     }
 
     clear(){
-        this.ttl_cache = new Map();
+        this.#ttl_cache = new Map();
         return super.clear();
     }
 
     delete(v){
-        this.ttl_cache.delete(v);
+        this.#ttl_cache.delete(v);
         return super.delete(v);
     }
 
