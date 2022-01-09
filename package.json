@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "homepage": "https://github.com/beepsdev/set-ttl",
+  "bugs": "https://github.com/beepsdev/set-ttl/issues",
+  "author": "BeepSterr",
+  "license": "MIT"
 }
