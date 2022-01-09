@@ -1,5 +1,6 @@
-const setttl = require('./index');
 
+
+    const setttl = require('./index');
 
     // Create cache with a TTL of 500ms
     let cache = new setttl(500);
@@ -13,11 +14,17 @@ const setttl = require('./index');
         cache.extend('test 1', 300); //Extends cached value TTL by 300ms
     }, 250)
 
-    // Check the contents of "test 1" after 250ms
+    // Check the contents of "test 1" after 450ms
     // Item should still exists, cause it was extended at 250ms
     setTimeout( ()=> {
         console.log('Should be true: ', cache.has('test 1'));
-    }, 500)
+    }, 450)
+
+    // Check the contents of "test 1" after 600ms
+    // Item should still exists, cause it was extended at 250ms
+    setTimeout( ()=> {
+        console.log('Should be true: ', cache.has('test 1'));
+    }, 600)
 
     // Now a second has passed and the 500+300ms TTL should have passed.
     setTimeout( ()=> {
