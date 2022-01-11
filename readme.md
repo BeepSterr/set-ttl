@@ -31,7 +31,7 @@ setTimeout( ()=> {
 
 ## Why?
 I Wanted a simple way to keep track of keys and check when they have expired. I'm sure there are better solutions out there but I wanted to keep things simple.
-Also, Some of the solutions I found used SetTimeout() which I wanted to avoid.
+Also, Some of the solutions I found used SetTimeout() or repeated a lot of unneeded checks which I wanted to avoid.
 
 ### Implemented for
 `Set.prototype.size`
