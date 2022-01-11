@@ -13,7 +13,6 @@ module.exports = class SetTTL extends Set {
 
         const now = new Date().getTime();
 
-
         if(now < this.#next_check){
             return;
         }
@@ -36,11 +35,13 @@ module.exports = class SetTTL extends Set {
     add(v, ttl){
         const current = new Date().getTime();
         this.#ttl_cache.set(v, ttl ? current + ttl : current + this.default_ttl);
+        this.#next_check = 0;
         return super.add(v);
     }
 
     extend(v, ttl){
         const current = this.#ttl_cache.get(v);
+        this.#next_check = 0;
         if(current){
             this.#ttl_cache.set(v, ttl ? current + ttl : current + this.default_ttl);
         }
