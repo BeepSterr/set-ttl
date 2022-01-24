@@ -105,5 +105,3 @@ module.exports = class SetTTL extends Set {
         return super.size;
     }
 }
-
-
