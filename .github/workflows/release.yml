@@ -20,8 +20,8 @@ jobs:
       - run: npm ci
       - run: npm test
 
-  publish-gpr:
-    needs: build
+  publish:
+    needs: test
     runs-on: [self-hosted, linux]
     permissions:
       contents: read
@@ -31,21 +31,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-      - run: echo registry=https://npm.pkg.github.com/ >> .npmrc
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.PAT}}
-
-  publish-npm:
-    needs: build
-    runs-on: [self-hosted, linux]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: JS-DevTools/npm-publish@v1
         with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          token: ${{ secrets.NPM_TOKEN }}
+          tag: latest
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          registry: "https://npm.pkg.github.com/"
+          tag: latest
