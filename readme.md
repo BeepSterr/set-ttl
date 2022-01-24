@@ -1,4 +1,6 @@
 # set-ttl
+[![Run tests](https://github.com/beepsdev/set-ttl/actions/workflows/tests.yml/badge.svg)](https://github.com/beepsdev/set-ttl/actions/workflows/tests.yml)
+
 A Simple module for allowing set entries to expire.
 
 ## Install
