@@ -1,0 +1,19 @@
+{
+  "name": "@beepsdev/set-ttl",
+  "version": "0.0.3",
+  "description": "Set() with TTL on keys",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
+  "homepage": "https://github.com/beepsdev/set-ttl",
+  "bugs": "https://github.com/beepsdev/set-ttl/issues",
+  "author": "BeepSterr",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^27.4.7"
+  }
+}
