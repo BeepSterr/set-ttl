@@ -1,13 +1,35 @@
+const range_error_message = 'ttl should be a number between 1 and Infinity';
+
 module.exports = class SetTTL extends Set {
 
     #ttl_cache = new Map();
-    default_ttl= 0;
+    #default_ttl= 500;
     #next_check = 0;
+
+	set ttl(v){
+		v = Number(v);
+		if(!(v > 0) || !(Infinity > v)){
+			throw new RangeError(range_error_message);
+		}
+		this.#default_ttl = Number(v);
+	}
+
+	get ttl(){
+		return this.#default_ttl;
+	}
 
     constructor(default_ttl) {
         super();
-        this.default_ttl = Number(default_ttl);
-    }
+
+		if(default_ttl){
+			this.#default_ttl = Number(default_ttl);
+		}
+
+		// sanity
+		if(!(this.#default_ttl > 0) || !(Infinity > this.#default_ttl)){
+			throw new RangeError(range_error_message);
+		}
+	}
 
     #checkTTL(){
 
@@ -35,14 +57,16 @@ module.exports = class SetTTL extends Set {
 
     add(v, ttl){
         const current = new Date().getTime();
-        this.#ttl_cache.set(v, ttl ? current + ttl : current + this.default_ttl);
+        this.#ttl_cache.set(v, ttl ? current + ttl : current + this.#default_ttl);
+        this.#next_check = 0;
         return super.add(v);
     }
 
     extend(v, ttl){
         const current = this.#ttl_cache.get(v);
+        this.#next_check = 0;
         if(current){
-            this.#ttl_cache.set(v, ttl ? current + ttl : current + this.default_ttl);
+            this.#ttl_cache.set(v, ttl ? current + ttl : current + this.#default_ttl);
         }
     }
 
