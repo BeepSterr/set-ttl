@@ -1,7 +1,8 @@
 name: Run tests
 
 on:
-  push: [master]
+  push:
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
